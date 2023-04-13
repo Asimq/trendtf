@@ -1,0 +1,9 @@
+QUEUE_NAME: lemma_corpus_queue
+BATCH_SIZE: 25
+RABBITMQ_HOST: trendtf23.osl.tib.eu
+RABBITMQ_PORT: 5672
+RABBITMQ_USER: admin
+RABBITMQ_PASS: dSpace
+INPUT_FOLDER: /mnt/drive/RabbitMQ/corpus_keyphrases/output/
+OUTPUT_FOLDER: /mnt/drive/RabbitMQ/lemma_corpus/output/
+SENT_FILE_LIST: lemma_corpus_temp

@@ -1,0 +1,9 @@
+---
+- name: Run Consumer 
+  hosts: my_debian_servers
+  vars:
+    app_name:
+    app_dir: /mnt/drive/RabbitMQ/{{ app_name }}
+  tasks:
+    - name: Run consumer.py in a new screen and detach it
+      shell: "screen -dmS {{ app_name }} /usr/bin/python3 {{ app_dir }}/consumer.py"

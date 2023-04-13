@@ -1,0 +1,20 @@
+preprocessing:
+    input_dir: ''
+    output_dir: ''
+    xml_dump_path: ''
+    process_xml_dump: False
+
+lda:
+    input_dir: ''
+    output_dir: ''
+    save_model: True
+    load_model: ''
+    mode:
+        word_embedding_only: False
+        LDA_only: False
+        word_embedding_LDA: True
+    
+validation:
+    input_dir: ''
+    output_dir: ''
+    lda_filename: ''

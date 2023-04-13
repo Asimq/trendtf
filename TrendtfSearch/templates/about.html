@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width">
+  <title>About - TrenDTF Search</title>
+  <link rel="stylesheet" href="{{ config['BASE_URL'] }}/static/style.css">
+</head>
+<body>
+  <div class="wrapper">
+    <div class="main-content">
+      <div class="search-container">
+        <h1 class="search-title"><a href="{{ url_for('search') }}">TrenDTF Search</a></h1>
+      </div>
+      <div class="results-container">
+        <h2>About TrenDTF Search</h2>
+          <p>The TrenDTF Search, prototype, is a direct outcome of <a href="https://www.bmbf.de/bmbf/de/forschung/zukunftsstrategie/indikatorik-in-forschung-und-innovation/indikatorik-in-forschung-und-innovation_node.html" target="_blank">TrenDTF</a>, a BMBF funded joint project of TIB with Fraunhofer ISI and Fraunhofer IML, 01.10.2019 - 30.09.2022.
+          </p><p>The prototype covers a large (69,961 reports), though incomplete, collection of <a href="https://www.tib.eu/en/publishing-archiving/research-reports" target="_blank">German research reports</a>.
+          </p><p>TrenDTF Search leverages, advanced algorithms (encompassing <i>Named Entity Recognition, topic modeling, subject classification, full report text, etectra.</i> ) and query/data weightage techniques to deliver the most relevant results for the query. The search can be refined using various filters like language, publication year, publisher, and topic.
+            <br>
+            <br>Following are some example queries:
+            <br>
+            <br>1.	Simple keyword(s) based queries like <b><i>Software engineering</i></b>, or <b><i>Informatik</i></b>
+            <br>
+            <br>2.	Queries using filters along with keywords:
+            <br>
+            <br>&nbsp&nbsp <b> a.	lang </b>
+            <br>&nbsp&nbsp&nbsp&nbsp&nbsp     It supports <b>eng</b> and <b>de</b> as paramters – <b><i>lang:eng</i></b>
+            <br>
+            <br>&nbsp&nbsp <b> b.	date </b>
+            <br>&nbsp&nbsp&nbsp&nbsp&nbsp       It supports date as a single parameter <b><i>date:2000</i></b> and as a range <b><i>date:2000-2015</i></b>
+            <br>
+            <br>&nbsp&nbsp <b> c.	publisher </b>
+            <br> &nbsp&nbsp&nbsp&nbsp&nbsp      It supports filtering on a particular publisher e.g., <b><i>publisher:"TUM"</i></b>
+            <br>
+            <br>&nbsp&nbsp <b> d.	topic </b>
+            <br>&nbsp&nbsp&nbsp&nbsp&nbsp It is not actually a filter but it influences the weightage of query for matching over <i>entity annotations, topic modeling, and subject classification</i>. Example query: <b><i>informatik topic:Computergraphik</i></b>
+            <br>
+            <br>&nbsp&nbsp <b> e.	PPN </b>
+            <br> &nbsp&nbsp&nbsp&nbsp&nbsp      Any PPN can be search directly e.g., <b><i>687982758</i></b>
+          </p>
+          <p> For each found research report, the result entry provides, as far as available:
+            <br>
+            <br><b>•	Report title</b>
+            <br><b>•	Publisher </b>(i.e. the research institution)
+            <br><b>•	Author(s)</b>
+            <br><b>•	DOI link</b>
+            <br><b>•	Language</b>
+            <br><b>•	PDF</b>
+            <br><b>•	Extracted fulltext</b>
+            <br><b>•	Generic preprocessed text</b>
+            <br>
+            <br>And additionally, as separate metadata sets
+            <br>
+            <br><b>•	FTX </b>(TIBKAT's original metadata set)
+            <br><b>•	JSON </b>(developer friendly)
+            <br><b>•	DC </b>(Dublin Core JSON, optimized for DSpace 7.*)
+            <br><b>•	XML </b>(XML metadata)
+          </p><p>
+            <br>The full text JSON metadata also contains DBpedia terms, which were derived through the NER. Extracted concepts and DBpedia terms for full text are only available for a small subset of the reports, mostly from computer science. However, concepts and DBpedia terms from title are available for all reports.
+            <br>
+            <br>Topic modeling based classification is available for 66,777 research reports.
+            <br>
+            <br>Some additional technical background:
+            <br>
+            <br>•	TrenDTFsearch is based on Elastic Search, Flask and FastAPI. Machine access is possible and documented at <a href="https://service.tib.eu/trendtfAPI" target="_blank">https://service.tib.eu/trendtfAPI</a>.
+            <br>
+            <br>•	All metadata delivered from this service is provided under the <a href="https://creativecommons.org/publicdomain/zero/1.0/deed.en" target="_blank">Public Domain conditions (CC 0)</a>. This applies NOT to the extracted text of the research reports.
+            <br>
+            <br>•	Many thanks to <a href="https://github.com/Asimq" target="_blank">Asim Qazi</a>, TrenDTF's lead developer!
+            <br>
+            <br>
+            <br>For further questions, please get in contact with TrenDTF project coordinator <a href="https://tib.eu/Lambo" target="_blank">Lambert Heller</a>.
+            <br>
+          </p>
+      </div>
+    </div>
+    <footer>
+      <div class="footer-container">
+        <a href="https://www.tib.eu/en"><img src="{{ config['BASE_URL'] }}/static/images/TIB_Logo_DE_325px.png" alt="Logo" class="footer-logo"/></a>
+        <a href="https://www.bmbf.de/bmbf/de/forschung/zukunftsstrategie/indikatorik-in-forschung-und-innovation/indikatorik-in-forschung-und-innovation_node.html"><img src="{{ config['BASE_URL'] }}/static/images/bmbf_logo.svg" alt="Logo" class="footer-bmbf-logo"/></a>
+        <p class="footer-inside-text">This service is a result of TrenDTF, a BMBF funded project 2019-2022</p>
+        <div class="footer-links">
+          <a href="{{ url_for('dataprotection') }}" class="footer-link">Data-Protection</a>
+          <a href="{{ url_for('imprint') }}" class="footer-link">Imprint</a>
+          <a href="{{ url_for('about') }}" class="footer-link">About</a>
+        </div>
+      </div>
+    </footer>
+  </div>
+</body>
+</html>

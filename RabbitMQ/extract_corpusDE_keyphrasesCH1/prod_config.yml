@@ -1,0 +1,9 @@
+QUEUE_NAME: extract_corpusDE_keyphrasesCH1_queue
+BATCH_SIZE: 10
+RABBITMQ_HOST: trendtf23.osl.tib.eu
+RABBITMQ_PORT: 5672
+RABBITMQ_USER: admin
+RABBITMQ_PASS: dSpace
+INPUT_FOLDER: /mnt/drive/dtf_text/dtf_de_chunked/chunk1/
+OUTPUT_FOLDER: /mnt/drive/RabbitMQ/extract_corpusDE_keyphrasesCH1/output/
+SENT_FILE_LIST: extract_corpusDE_keyphrasesCH1_temp

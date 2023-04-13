@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width">
+  <title>Data Protection - TrenDTF Search</title>
+  <link rel="stylesheet" href="{{ config['BASE_URL'] }}/static/style.css">
+</head>
+<body>
+  <div class="wrapper">
+    <div class="main-content">
+      <div class="search-container">
+        <h1 class="search-title"><a href="{{ url_for('search') }}">TrenDTF Search</a></h1>
+      </div>
+      <div class="results-container">
+        <h2>Data Protection</h2>
+              <p>
+                Data protection is of high priority for the Technische Informationsbibliothek (TIB). As a general rule, the use of TIB's services does not require the provision of any personal data. However, the processing of personal data may be required where a data subject wants to use special services via the TIB's web pages. Where the processing of personal data is required and where there is no legal basis for such processing, we shall obtain the data subject's consent.
+              </p>
+                  <p>The processing of personal data, such as for example the data subject's name, address, email address, or telephone number shall always be carried out in accordance with the General Data Protection Regulation (GDPR) and the state and institution-specific data protection rules and regulations applicable to the TIB. This privacy statement serves to inform the public about the nature, scope and purpose of the personal data we collect, use and process, as well as of the rights data subjects are entitled to.
+                </p>
+              </p>The terms used in this privacy statement are to be understood within the meaning of the European General Data Protection Regulation (GDPR)..
+            </p>
+          <p>Name and address of the controller
+            <br>The controller under data protection law shall be:
+            <br>Technische Informationsbibliothek (TIB)
+            <br>Welfengarten 1 B
+            <br>30167 Hannover
+            <br>Germany
+            <br>Phone: 0511 762-8989
+              <br>Email: www.tib.eu </p>
+            <p>Name and address of the data protection officer
+            <br>The data protection officer of the controller shall be:
+              <br>Elke Brehm
+              <br>Phone: +49 511 762-8138
+              <br>E-Mail: datenschutz@tib.eu
+            </p>
+            <p>Postal address:
+              <br>Technische Informationsbibliothek (TIB)
+              <br>data protection officer
+              <br>Welfengarten 1 B
+              <br>30167 Hannover
+              <br>Germany
+            </p>
+            <p>Visiting Address:
+              <br>TIB Conti-Campus
+              <br>Königsworther Platz 1 B
+              <br>30167 Hannover
+            </p>
+            <p>Any data subject may contact our data protection officer directly regarding any and all questions and suggestions regarding data protection at any time.
+            </p>   
+  </div>
+    </div>
+    <footer>
+      <div class="footer-container">
+        <a href="https://www.tib.eu/en"><img src="{{ config['BASE_URL'] }}/static/images/TIB_Logo_DE_325px.png" alt="Logo" class="footer-logo"/></a>
+        <a href="https://www.bmbf.de/bmbf/de/forschung/zukunftsstrategie/indikatorik-in-forschung-und-innovation/indikatorik-in-forschung-und-innovation_node.html"><img src="{{ config['BASE_URL'] }}/static/images/bmbf_logo.svg" alt="Logo" class="footer-bmbf-logo"/></a>
+        <p class="footer-inside-text">This service is a result of TrenDTF, a BMBF funded project 2019-2022</p>
+        <div class="footer-links">
+          <a href="{{ url_for('dataprotection') }}" class="footer-link">Data-Protection</a>
+          <a href="{{ url_for('imprint') }}" class="footer-link">Imprint</a>
+          <a href="{{ url_for('about') }}" class="footer-link">About</a>
+        </div>
+      </div>
+    </footer>
+  </div>
+</body>
+</html>

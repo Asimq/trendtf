@@ -1,0 +1,67 @@
+---
+- name: Copy APP
+  hosts: localhost
+  become: true
+  vars:
+    app_name: 
+    app_dir: /mnt/drive/RabbitMQ/{{ app_name }}
+    template_dir: /mnt/drive/RabbitMQ/template
+  tasks:
+    - name: Create directory
+      become: true
+      file:
+        path: "{{ app_dir }}"
+        state: directory
+
+    - name: Create output directory in {{ app_dir }}
+      become: true
+      file:
+        path: "{{ app_dir }}/output"
+        state: directory
+
+    - name: Copy all files from {{ template_dir }} to {{ app_dir }}
+      become: true
+      copy:
+        src: "{{ template_dir }}/"
+        dest: "{{ app_dir }}/"
+
+    - name: Update prod_config.yml
+      become: true
+      lineinfile:
+        path: "{{ app_dir }}/prod_config.yml"
+        regexp: '^{{ item.key }}:'
+        line: '{{ item.key }}: {{ item.value }}'
+      loop:
+        - { key: 'QUEUE_NAME', value: "{{ app_name }}_queue" }
+        - { key: 'SENT_FILE_LIST', value: "{{ app_name }}_temp" }
+        - { key: 'OUTPUT_FOLDER', value: "{{ app_dir }}/output/" }
+    
+    - name: Update YAML config in producer, consumer, and clearQueue scripts
+      become: true
+      lineinfile:
+        path: "{{ app_dir }}/{{ item.file }}"
+        regexp: "^(\\s*)yaml_config(\\s*)=(\\s*)'prod_config\\.yml'"
+        line: "\\1yaml_config = '{{ app_dir }}/prod_config.yml'"
+        backrefs: yes
+      loop:
+        - { file: 'producer.py' }
+        - { file: 'consumer.py' }
+        - { file: 'clearQueue.py' }
+    
+     - name: Update app_name in runConsumer.yml and stopConsumer.yml
+      become: true
+      lineinfile:
+        path: "{{ app_dir }}/ansibleScripts/{{ item.file }}"
+        regexp: "^\\s*app_name:\\s*(.*)$"
+        line: "app_name: {{ app_name }}"
+        backrefs: no
+      loop:
+        - { file: 'runConsumer.yml' }
+        - { file: 'stopConsumer.yml' }
+
+    - name: Set app_dir to 777 permissions
+      become: true
+      file:
+        path: "{{ app_dir }}"
+        mode: '0777'
+        recurse: yes

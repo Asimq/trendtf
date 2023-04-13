@@ -1,0 +1,9 @@
+QUEUE_NAME: removeDictionaryWordsCorpus_queue
+BATCH_SIZE: 20
+RABBITMQ_HOST: trendtf23.osl.tib.eu
+RABBITMQ_PORT: 5672
+RABBITMQ_USER: admin
+RABBITMQ_PASS: dSpace
+INPUT_FOLDER: /mnt/drive/topicModellingScriptsXMLMAY/Preprocessed_Documents/Corpus/2_PreprocessedDocuments/2_PreprocessedDocuments/
+OUTPUT_FOLDER: /mnt/drive/RabbitMQ/removeDictionaryWordsCorpus/output/
+SENT_FILE_LIST: removeDictionaryWordsCorpus_temp

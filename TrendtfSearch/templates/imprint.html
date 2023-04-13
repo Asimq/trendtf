@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width">
+  <title>Imprint - TrenDTF Search</title>
+  <link rel="stylesheet" href="{{ config['BASE_URL'] }}/static/style.css">
+</head>
+<body>
+  <div class="wrapper">
+    <div class="main-content">
+      <div class="search-container">
+        <h1 class="search-title"><a href="{{ url_for('search') }}">TrenDTF Search</a></h1>
+      </div>
+      <div class="results-container">
+        <h2>Imprint</h2>
+              <p>
+                Imprint for this website – also serves as provider identification according to § 5 Telemediengesetz (TMG)
+                <br>
+                <br>Provider:
+                <br>Technische Informationsbibliothek (TIB)
+                <br>Welfengarten 1 B, 30167 Hannover
+                <br>Postfach 6080, 30060 Hannover
+                <br>
+                <br>Authorised Representative:
+                <br>Prof. Dr. Sören Auer (Director of TIB)
+                <br>
+                <br>Technische Informationsbibliothek (TIB) is a foundation of public law of the state of Lower Saxony.
+                <br>
+                <br>Responsible Supervisory Authority:
+                <br>Ministry for Science and Culture of Lower Saxony
+                <br>
+                <br>Contact:
+                <br>Customer service phone: +49 511 762-8989
+                <br>Central information desk phone: +49 511 762-2268
+                <br>Fax: +49 511 762-4076
+                <br>Email: information@tib.eu
+                <br>VAT (sales tax) registration number: DE 214931803
+                <br>
+                <br>Editorial Office:
+                <br>Dr. Sandra Niemeyer
+                <br>Email: sandra.niemeyer@tib.eu
+                <br>
+                <br>Copyright:
+                <br>The layout of this website is protected under copyright, as are the graphics and all other contents contained in the website.
+              </p>
+  </div>
+    </div>
+    <footer>
+      <div class="footer-container">
+        <a href="https://www.tib.eu/en"><img src="{{ config['BASE_URL'] }}/static/images/TIB_Logo_DE_325px.png" alt="Logo" class="footer-logo"/></a>
+        <a href="https://www.bmbf.de/bmbf/de/forschung/zukunftsstrategie/indikatorik-in-forschung-und-innovation/indikatorik-in-forschung-und-innovation_node.html"><img src="{{ config['BASE_URL'] }}/static/images/bmbf_logo.svg" alt="Logo" class="footer-bmbf-logo"/></a>
+        <p class="footer-inside-text">This service is a result of TrenDTF, a BMBF funded project 2019-2022</p>
+        <div class="footer-links">
+          <a href="{{ url_for('dataprotection') }}" class="footer-link">Data-Protection</a>
+          <a href="{{ url_for('imprint') }}" class="footer-link">Imprint</a>
+          <a href="{{ url_for('about') }}" class="footer-link">About</a>
+        </div>
+      </div>
+    </footer>
+  </div>
+</body>
+</html>

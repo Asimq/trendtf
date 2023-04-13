@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width">
+  <title>TrenDTF Search</title>
+  <link rel="stylesheet" href="{{ config['BASE_URL'] }}/static/style.css">
+
+</head>
+<body>
+  <div class="wrapper">
+    <div class="main-content">
+      <div class="search-container">
+        <h1 class="search-title"><a href="#" onclick="event.preventDefault(); clearSearch();">TrenDTF Search</a></h1>
+        <form class="search-form" action="{{ url_for('search', _anchor=None, **request.view_args) }}" method="get">
+          <input type="text" id="search-input" name="q" placeholder='Example: informatik publisher:"TUM" date:2000-2010 lang:eng' value="{{ request.args.get('q', '') }}">
+          <input type="submit" value="Search">
+        </form>
+        <div class="search-info">
+          {% if request.args.get('q') %}
+            {% if error_occured %}
+            <p>Invalid Date Format</p>
+            {% else %}
+              {% if hits|length == 0 %}
+                <p>No results found.</p>
+              {% else %}
+                <p>Found {{ total_hits }} results, in {{ took|round(2) }} miliseconds</p>
+              {% endif %}
+            {% endif %}
+          {% endif %}
+
+        </div>
+        {% if hits|length > 0 %}
+        <div class="results-container">
+          {% for hit in hits %}
+          <div class="result-card">
+            <div class="result-header">
+              <h3 class="result-title"><a href="https://www.tib.eu/en/suchen/id/TIBKAT:{{ hit._source.ppn.ppn }}" target="_blank">{{ hit._source.title.mainTitle }}</a></h3>
+              {% if hit._source.publisher.publisher %}
+              <p class="result-publisher"><a href="{{ url_for('search', q=q ~ ' publisher:"' ~ hit._source.publisher.publisher ~ '"') }}">{{ hit._source.publisher.publisher }}</a></p>
+              {% endif %}
+              {% if hit._source.authors %}
+              <p class="result-authors">
+                {% for author in hit._source.authors %}
+                {{ author.authorName }}
+                {% endfor %}
+              </p>
+              {% endif %}
+              <p class="result-doi"><a href="https://doi.org/10.2314/GBV:{{ hit._source.ppn.ppn }}" target="_blank"  class="result-doi" >https://doi.org/10.2314/GBV:{{ hit._source.ppn.ppn }}</a>
+              </p>
+            </div>
+            <div class="result-details">
+              {% if hit._source.language.language %}
+              <span class="language"><a href="{{ url_for('search', q=q ~ ' lang:' ~ hit._source.language.language) }}">{{ hit._source.language.language }}</a></span>
+              {% endif %}
+              {% if hit._source.publicationYear.publicationYear %}
+              <span class="publicationYear"><a href="{{ url_for('search', q=q ~ ' date:' ~ hit._source.publicationYear.publicationYear) }}">{{ hit._source.publicationYear.publicationYear }}</a></span>
+              {% endif %}
+              <a href="https://service.tib.eu/trendtfAPI/dtf/pdf/{{ hit._source.ppn.ppn }}" target="_blank" class="pdf">PDF</a>
+              <a href="https://service.tib.eu/trendtfAPI/dtf/rawtxt/{{ hit._source.ppn.ppn }}" target="_blank" class="pdf">RAWTXT</a>
+              <a href="https://service.tib.eu/trendtfAPI/dtf/prepv1/{{ hit._source.ppn.ppn }}" target="_blank" class="pdf">PREP</a>
+              <a class="metadata">Metadata</a>
+              <a href="https://service.tib.eu/trendtfAPI/dtf/metadata/ftx/{{ hit._source.ppn.ppn }}" target="_blank" class="pdf">FTX</a>
+              <a href="https://service.tib.eu/trendtfAPI/dtf/metadata/json/{{ hit._source.ppn.ppn }}" target="_blank" class="pdf">JSON</a>
+              <a href="https://service.tib.eu/trendtfAPI/dtf/metadata/json_dc/{{ hit._source.ppn.ppn }}" target="_blank" class="pdf">DC</a>
+              <a href="https://service.tib.eu/trendtfAPI/dtf/metadata/xml/{{ hit._source.ppn.ppn }}" target="_blank" class="pdf">XML</a>
+            </div>
+          </div>
+          {% endfor %}
+          {% if total_pages > 1 %}
+          <div class="pagination">
+            {% if page > 1 %}
+            <a href="{{ url_for('search', q=q, page=page-1) }}" class="previous">&laquo; Previous</a>
+            {% endif %}
+            {% if total_pages <= 10 %}
+            {% for num in range(1, total_pages+1) %}
+            {% if num == page %}
+            <span class="current-page">{{ num }}</span>
+            {% else %}
+            <a href="{{ url_for('search', q=q, page=num) }}">{{ num }}</a>
+            {% endif %}
+            {% endfor %}
+            {% else %}
+        {% if page < 6 %}
+        {% for num in range(1, 11) %}
+        {% if num == page %}
+        <span class="current-page">{{ num }}</span>
+        {% else %}
+        <a href="{{ url_for('search', q=q, page=num) }}">{{ num }}</a>
+        {% endif %}
+        {% endfor %}
+        <span class="ellipsis">...</span>
+        <a href="{{ url_for('search', q=q, page=total_pages) }}">{{ total_pages }}</a>
+        {% elif page >= 6 and page <= total_pages - 5 %}
+        <a href="{{ url_for('search', q=q, page=1) }}">1</a>
+        <span class="ellipsis">...</span>
+        {% for num in range(page-4, page+5) %}
+        {% if num == page %}
+        <span class="current-page">{{ num }}</span>
+        {% else %}
+        <a href="{{ url_for('search', q=q, page=num) }}">{{ num }}</a>
+        {% endif %}
+        {% endfor %}
+        <span class="ellipsis">...</span>
+        <a href="{{ url_for('search', q=q, page=total_pages) }}">{{ total_pages }}</a>
+        {% else %}
+        <a href="{{ url_for('search', q=q, page=1) }}">1</a>
+        <span class="ellipsis">...</span>
+        {% for num in range(total_pages-9, total_pages+1) %}
+        {% if num == page %}
+        <span class="current-page">{{ num }}</span>
+        {% else %}
+        <a href="{{ url_for('search', q=q, page=num) }}">{{ num }}</a>
+        {% endif %}
+        {% endfor %}
+        {% endif %}
+        {% endif %}
+        {% if total_pages > page %}
+        <a href="{{ url_for('search', q=q, page=page+1) }}" class="next">Next &raquo;</a>
+        {% endif %}
+      </div>
+      {% endif %}
+    </div>
+    {% endif %}
+    </div>
+  </div>
+
+  <script>
+    document.querySelector('.search-title').addEventListener('click', function(event) {
+      location.href = "{{ url_for('search', q='') }}";
+    });
+  </script>
+  
+  <footer>
+    <div class="footer-container">
+      <a href="https://www.tib.eu/en"><img src="{{ config['BASE_URL'] }}/static/images/TIB_Logo_DE_325px.png" alt="Logo" class="footer-logo"/></a>
+      <a href="https://www.bmbf.de/bmbf/de/forschung/zukunftsstrategie/indikatorik-in-forschung-und-innovation/indikatorik-in-forschung-und-innovation_node.html"><img src="{{ config['BASE_URL'] }}/static/images/bmbf_logo.svg" alt="Logo" class="footer-bmbf-logo"/></a>
+      <p class="footer-inside-text">This service is a result of TrenDTF, a BMBF funded project 2019-2022</p>
+      <div class="footer-links">
+        <a href="{{ url_for('dataprotection') }}" class="footer-link">Data-Protection</a>
+        <a href="{{ url_for('imprint') }}" class="footer-link">Imprint</a>
+        <a href="{{ url_for('about') }}" class="footer-link">About</a>
+
+      </div>
+    </div>
+  </footer>
+</div>
+
+</body>
+</html>

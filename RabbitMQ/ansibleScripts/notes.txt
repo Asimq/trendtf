@@ -1,0 +1,19 @@
+#install ansible
+
+apt-get install ansible
+
+#store servers in inventory.ini 
+#store passphrase and password for super user in vars.yml
+
+#encrypt the vars 
+ansible-vault encrypt vars.yml
+
+#run the playbook
+ansible-playbook -i inventory.ini copyApp.yml --ask-vault-pass
+ansible-playbook -i inventory.ini installdependencies.yml --ask-vault-pass
+
+or
+
+ansible-playbook -i inventory.ini copyApp.yml
+ansibleScripts$ ansible-playbook -i inventory.ini installdependencies.yml
+

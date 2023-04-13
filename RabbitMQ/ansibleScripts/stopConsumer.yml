@@ -1,0 +1,9 @@
+---
+- name: Stop Consumer 
+  hosts: my_debian_servers
+  vars:
+    app_name:
+    app_dir: /mnt/drive/RabbitMQ/{{ app_name }}
+  tasks:
+    - name: Stop consumer.py by killing the screen 
+      shell: "screen -S {{ app_name }} -X quit"

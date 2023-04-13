@@ -1,0 +1,9 @@
+QUEUE_NAME: extractkeyphrases_queue
+BATCH_SIZE: 10
+RABBITMQ_HOST: trendtf23.osl.tib.eu
+RABBITMQ_PORT: 5672
+RABBITMQ_USER: admin
+RABBITMQ_PASS: dSpace
+INPUT_FOLDER: /mnt/drive/dtf_text/cs/text/
+OUTPUT_FOLDER: /mnt/drive/RabbitMQ/extract_cs_keyphrases/output/
+SENT_FILE_LIST: extract_cs_keyphrases_temp
